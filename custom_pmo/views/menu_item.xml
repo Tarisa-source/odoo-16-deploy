@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+         <menuitem
+                 id="menu_main_custom_hr"
+                 name="PMO"
+                 groups="group_my_module_manager"
+                 sequence="10"/>
+
+        <menuitem
+                 id="menu_main_custom_rource"
+                 name="Resource"
+                 parent="menu_main_custom_hr"
+                 groups="group_my_module_manager"
+                 sequence="11"/>
+
+        <menuitem
+                 id="menu_main_custom_challenge"
+                 name="Challenge"
+                 action="action_challenge"
+                 parent="menu_main_custom_rource"
+                 groups="group_my_module_manager"
+                 sequence="1"/>
+
+        <menuitem
+                id="menu_employee_specific_division_main"
+                name="List Karyawan"
+                parent="menu_main_custom_rource"
+                sequence="2"
+                groups="group_my_module_manager"
+                action="action_employee_specific_division"/>
+
+        <menuitem
+                id="menu_resigned_report"
+                name="Resigned Report"
+                parent="menu_main_custom_rource"
+                sequence="3"
+                groups="group_my_module_manager"
+                action="action_employee_resigned"/>
+
+        <menuitem
+                id="menu_report"
+                name="Report"
+                parent="menu_main_custom_hr"
+                groups="group_my_module_manager"
+                sequence="12"/>
+
+        <menuitem
+                id="menu_project_report"
+                name="Project Report"
+                parent="menu_report"
+                sequence="2"
+                groups="group_my_module_manager"
+                action="action_custom_pmo"/>
+
+    </data>
+
+</odoo>

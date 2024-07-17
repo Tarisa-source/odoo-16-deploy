@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="view_employee_specific_division_tree" model="ir.ui.view">
+            <field name="name">employee.specific.division.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="x_nik"/>
+                    <field name="lama_bekerja"/>
+                    <field name="job_id"/>
+                    <field name="department_id"/>
+                    <field name="x_gelar"/>
+                    <field name="x_bidang_studi"/>
+                    <field name="x_sekolah"/>
+                </tree>
+            </field>
+            <field name="groups_id" eval="[(6, 0, [ref('group_my_module_manager')])]"/>
+        </record>
+
+        <record id="action_employee_specific_division" model="ir.actions.act_window">
+            <field name="name">Daftar Karyawan PMO</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_employee_specific_division_tree"/>
+            <field name="domain">[('department_id.name', '=', 'PMO')]</field>
+        </record>
+
+    </data>
+</odoo>

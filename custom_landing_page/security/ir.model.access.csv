@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_actions_server_employee,access_ir_actions_server_employee,base.model_ir_actions_server,base.group_user,1,0,0,0
+access_res_users_employee,access_res_users_employee,base.model_res_users,base.group_user,1,0,0,0
+access_ir_action_client_user,access_ir_action_client_user,base.model_ir_actions_client,base.group_user,1,0,0,0
+access_ir_action_window_user,access_ir_action_window_user,base.model_ir_actions_act_window,base.group_user,1,0,0,0
+access_ir_action_window_view_user,access_ir_action_window_view_user,base.model_ir_actions_act_window_view,base.group_user,1,0,0,0

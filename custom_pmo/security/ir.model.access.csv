@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pmo_manager_challenge,access_pmo_manager_challenge,model_challenge,group_my_module_manager,1,1,1,1
+access_pmo_manager_project,access_pmo_manager_project,model_project_report,group_my_module_manager,1,1,1,1
+access_employee_specific_division,access.employee.specific.division,model_hr_employee,group_my_module_manager,1,0,0,0

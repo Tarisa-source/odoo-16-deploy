@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_challenge_form" model="ir.ui.view">
+            <field name="name">challenge.form</field>
+            <field name="model">challenge</field>
+            <field name="arch" type="xml">
+                <form string="Challenge Form">
+                <sheet>
+                    <group>
+                        <field name="employee_pmo" domain="[('department_id.name', '=', 'PMO')]"/>
+                        <field name="promote_level"/>
+                        <field name="asesor" options="{'no_open': True, 'no_quick_create': True}" widget="many2many_avatar_user" domain="[('department_id.name', '=', 'PMO'), ('job_id.name', '=', 'Project Manager')]"/>
+                        <field name="start_challenge"/>
+                        <field name="end_date"/>
+                        <field name="status_challenge"/>
+                        <field name="notes" placeholder="Free text penjelasan kenapa berhasil dan kenapa gagal"/>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_challenge_tree" model="ir.ui.view">
+            <field name="name">challenge.tree</field>
+            <field name="model">challenge</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_pmo"/>
+                    <field name="promote_level"/>
+                    <field name="start_challenge"/>
+                    <field name="end_date"/>
+                    <field name="status_challenge"/>
+                    <field name="notes" placeholder="Free text penjelasan kenapa berhasil dan kenapa gagal"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="write_uid"/>
+                    <field name="write_date"/>
+                    <field name="asesor" optional="show" widget="many2many_avatar_user" domain="[('department_id.name', '=', 'PMO'), ('job_id.name', '=', 'Project Manager')]" options="{&quot;no_quick_create&quot;: True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_challenge" model="ir.actions.act_window">
+            <field name="name">Challenge</field>
+            <field name="res_model">challenge</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_challenge_tree"/>
+        </record>
+
+    </data>
+</odoo>
