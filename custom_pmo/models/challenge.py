@@ -6,14 +6,14 @@ class Challenge(models.Model):
     _description = 'Challenge PMO'
     _rec_name = 'employee_pmo'
 
-    employee_pmo = fields.Many2one('res.users', string='Name', auto_join=True, tracking=True, required=True)
+    employee_pmo = fields.Many2one('res.users', string='Name', auto_join=True, required=True)
     promote_level = fields.Selection([
         ('PM','Project Manager'),
         ('leader', 'Leader'),
         ('system_analyst', 'System Analyst'),
         ('developet_analyst', 'Developer Analyst'),
         ('developer', 'Developer'),
-    ], default=False, index=True, string="Promote Level", tracking=True, required=True)
+    ], default=False, index=True, string="Promote Level", required=True)
     start_challenge = fields.Date(string='Start Challenge', index=True, required=True)
     end_date = fields.Date(string='End Challenge', index=True, required=True)
     status_challenge = fields.Selection([
@@ -21,9 +21,9 @@ class Challenge(models.Model):
         ('in progress', 'In Progress'),
         ('success', 'Success'),
         ('failed', 'Failed'),
-    ], string='Status Challenge', index=True, tracking=True, required=True)
+    ], string='Status Challenge', index=True, required=True)
     notes = fields.Char(string="Notes", help='Free text penjelasan kenapa berhasil dan kenapa gagal')
-    asesor = fields.Many2many('hr.employee', relation='challenge_employee_rel', column1='challenge_id', column2='employee_id', string='Assessor', context={'active_test': False}, tracking=True, required=True)
+    asesor = fields.Many2many('hr.employee', relation='challenge_employee_rel', column1='challenge_id', column2='employee_id', string='Assessor', context={'active_test': False}, required=True)
 
     @api.constrains('start_challenge', 'end_date')
     def _check_dates(self):
