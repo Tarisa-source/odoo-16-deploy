@@ -23,7 +23,7 @@
 
         <menuitem
                 id="menu_employee_specific_division_main"
-                name="List Karyawan"
+                name="List Resource"
                 parent="menu_main_custom_rource"
                 sequence="2"
                 groups="group_my_module_manager"
