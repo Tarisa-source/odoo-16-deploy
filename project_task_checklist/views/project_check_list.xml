@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_task_form2_inherit_form_view">
+        <field name="name">project.task.form.view.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='description_page']" position="after">
+                <page string=" Checklist">
+                    <button name="add_checklist_temp"
+                                string="Add Checklist" type="object"
+                                class="btn-primary mb-3 oe_edit_only" invisible="1"/>
+                    <button name="reset_all_checklist"
+                                confirm="Do you want to remove all checklist items?"
+                                string="Delete Checklist" type="object"
+                                class="btn-warning oe_edit_only ms-3 mb-3" attrs="{'invisible':[('is_closed','=',True)]}"/>
+                    <field name="checklist_ids" widget="checklist_title_one2many">
+                        <tree editable="bottom" class="task_checklist" limit="200">
+                            <field name="is_title" invisible="1"/>
+                            <field name="sequence" widget="handle"/>
+                            <field name="checklist_progress_grouped" string="%" attrs="{'invisible':[('is_title','=',False)]}"/>
+                            <field name="check_box" string=" "/>
+                            <field name="name" placeholder="e.g. Just do it" decoration-muted="check_box == True"/>
+                            <field name="status"/>
+                            <control>
+                                <create name="add_checklist_title" string="Add Title" context="{'default_is_title': True}"/>
+                                <create name="add_checklist_content" string="Add Content"/>
+                            </control>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_view_kanban_progress_inherit" model="ir.ui.view">
+        <field name="name">project.view.kanban.progress.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="/kanban/templates/t/div" position="inside">
+              <t t-if="record.checklist_progress.raw_value > 0">
+                <span>
+                  <i class="fa fa-check-square-o"/>
+                  <field name="checklist_progress" string="checklist Progress"/>
+                  <span>%</span>
+                </span>
+              </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_view_kanban_progress_inherit2" model="ir.ui.view">
+        <field name="name">project.view.kanban.progress.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+           <xpath expr="//div[contains(@class, 'o_kanban_record_body')]" position="replace">
+               <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <div t-if="record.date_deadline.raw_value" name="date_deadline">
+                        <i class="fa fa-history" style="margin-right: 2px;"/>
+                        <field name="task_age" style="margin-right: 2px;"/>
+                        <span>days</span>
+                        <field name="date_deadline" widget="remaining_days" style="float: right;clear: both;" attrs="{'invisible': [('kanban_state', '=', 'done')]}"/>
+                    </div>
+                    <div t-else="">
+                        <i class="fa fa-history" style="margin-right: 2px;"/>
+                        <field name="task_age" style="margin-right: 2px;"/>
+                        <span>days</span>
+                    </div>
+                    <div t-if="record.displayed_image_id.value">
+                        <field name="displayed_image_id" widget="attachment_image"/>
+                    </div>
+           </xpath>
+        </field>
+    </record>
+
+
+    <record id="project_task_progress_inherited_tree" model="ir.ui.view">
+        <field name="name">project.task.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="checklist_progress" string="Checklist Progress" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="project_task_kanban_inherite" model="ir.ui.view">
+        <field name="name">project.task.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='kanban_state']" position="replace">
+                <field name="kanban_state" widget="state_selection"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    Assignees -->
+    <record id="project_task_progress_inherited" model="ir.ui.view">
+        <field name="name">project.task.inherited</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="replace">
+                <field name="user_ids" class="o_task_user_field" options="{'no_open': True, 'no_quick_create': True}" widget="many2many_avatar_user" domain="[('id', 'in', filtered_user_ids)]"/>
+                <field name="filtered_user_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
