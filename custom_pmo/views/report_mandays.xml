@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+
+         <!--        search-->
+        <record id="view_report_mandays_search" model="ir.ui.view">
+            <field name="name">report_mandays_search</field>
+            <field name="model">project.author</field>
+            <field name="arch" type="xml">
+                <search string="Project Author">
+                    <field name="name" string="Author" filter_domain="['|', ('name', 'ilike', self), ('id', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+
+<!--author tree-->
+        <record id="view_report_mandays_author_tree" model="ir.ui.view">
+            <field name="name">view.report.mandays.author</field>
+            <field name="model">project.author</field>
+            <field name="arch" type="xml">
+                <tree string="Report Mandays">
+                    <field name="name"/>
+                    <field name="job_name"/>
+                    <field name="total_individual_count" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--                action definition tree project.author -->
+        <record id="action_report_mandays_tree" model="ir.actions.act_window">
+            <field name="name">Report Mandays</field>
+            <field name="res_model">project.author</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_report_mandays_author_tree"/>
+            <field name="target">current</field>
+            <field name="domain">[('project_ids', '=', active_id)]</field>
+            <field name="search_view_id" ref="view_report_mandays_search"/>
+        </record>
+
+        <!--tree project-->
+        <record id="view_report_mandays_tree" model="ir.ui.view">
+            <field name="name">view.report.mandays.tree</field>
+            <field name="model">project.project</field>
+            <field name="arch" type="xml">
+                <tree string="Report Mandays Tree">
+                    <field name="name"/>
+                    <field name="target_mandays"/>
+                    <field name="used_year"/>
+                    <field name="used"/>
+                    <field name="nilai_project"/>
+                    <field name="user_id" />
+                    <field name="no_po"/>
+                    <field name="po_name"/>
+                    <field name="project_type"/>
+                    <field name="status"/>
+                    <button name="%(action_report_mandays_tree)d" type="action" class="oe_highlight" string="View Author Report" context="{'project_ids': active_id}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--    action definition tree-->
+        <record id="action_report_mandays" model="ir.actions.act_window">
+            <field name="name">Report Mandays</field>
+            <field name="res_model">project.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_report_mandays_tree"/>
+            <field name="target">current</field>
+        </record>
+
+
+    </data>
+</odoo>
+

@@ -16,6 +16,19 @@
             </field>
         </record>
 
+<!--        search-->
+        <record id="view_project_report_search" model="ir.ui.view">
+            <field name="name">project_report_search</field>
+            <field name="model">project.report</field>
+            <field name="arch" type="xml">
+                <search string="Project Report">
+                    <field name="author_name" string="Author" filter_domain="['|', ('author_name', 'ilike', self), ('id', 'ilike',self)]"/>
+                    <field name="project_name" string="Project" filter_domain="[('project_name','ilike', self)]"/>
+                    <field name="departement_name" string="Departement" filter_domain="[('departement_name', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
         <!-- Action Definition -->
         <record id="action_custom_pmo" model="ir.actions.act_window">
             <field name="name">Project Report</field>
@@ -23,6 +36,7 @@
             <field name="view_mode">tree</field> <!-- Perbarui view_mode untuk tree dan form -->
             <field name="view_id" ref="view_project_report_tree"/> <!-- Set tree view sebagai default -->
             <field name="target">current</field>
+            <field name="search_view_id" ref="view_project_report_search"/>
         </record>
     </data>
 </odoo>
